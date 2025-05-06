@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Delicious Cake Showcase</title>
+
+  <!-- model-viewer script -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <!-- Include Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+  <style>
+    /* Basic Setup */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffe4ec, #f9c5d1);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: backgroundMove 10s infinite alternate;
+      background-size: 400% 400%;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    /* Background Animation */
+    @keyframes backgroundMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    /* Dark Mode Styles */
+    body.dark-mode {
+      background: linear-gradient(135deg, #1e1e2f, #2b2b45);
+      color: #ffffff;
+    }
+
+    /* Title Animation */
+    h1 {
+      margin-top: 20px;
+      font-size: 3rem;
+      color: #d6336c;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+      animation: bounceInDown 2s;
+      transition: all 0.5s ease-in-out;
+    }
+    body.dark-mode h1 {
+      color: #ff7aa2;
+      text-shadow: 2px 2px 8px rgba(255,255,255,0.2);
+    }
+
+    /* Container Setup */
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      padding: 30px;
+      animation: fadeIn 2s ease-in;
+    }
+
+    /* Animated Border */
+    .animated-border {
+      position: relative;
+      border-radius: 30px;
+      overflow: hidden;
+      padding: 10px;
+      background: linear-gradient(270deg, #ff9aa2, #fad0c4, #ffdde1, #ff9aa2);
+      background-size: 800% 800%;
+      animation: borderAnimation 8s ease infinite;
+      box-shadow: 0 20px 30px rgba(0,0,0,0.15);
+      transition: transform 0.5s ease, background 0.5s ease;
+    }
+    @keyframes borderAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* 3D Model Styling */
+    model-viewer {
+      width: 430px;
+      height: 430px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+      transition: transform 0.5s ease, box-shadow 0.5s ease, background 0.5s ease;
+    }
+    body.dark-mode model-viewer {
+      background: #2f2f44;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+    }
+    model-viewer:hover {
+      transform: scale(1.05);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    /* Description Box Styling */
+    .description {
+      width: 450px;
+      font-size: 1.3rem;
+      color: #333;
+      line-height: 1.8;
+      background: #ffffffee;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      animation: fadeInRight 2s;
+      transition: transform 0.5s ease, box-shadow 0.5s ease, background 0.5s ease, color 0.5s ease;
+    }
+    .description:hover {
+      transform: scale(1.03);
+      box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+    }
+    body.dark-mode .description {
+      background: #3a3a5d;
+      color: #eee;
+      box-shadow: 0 10px 20px rgba(255,255,255,0.05);
+    }
+    .description p {
+      margin-bottom: 20px;
+    }
+
+    /* Toggle Button */
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #d6336c;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: background 0.3s, transform 0.3s;
+      z-index: 999;
+    }
+    .toggle-btn:hover {
+      background: #c2185b;
+      transform: scale(1.05);
+    }
+    body.dark-mode .toggle-btn {
+      background: #6c5ce7;
+    }
+    body.dark-mode .toggle-btn:hover {
+      background: #5a4cc7;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Toggle Button -->
+  <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Toggle Mode</button>
+
+  <h1 class="animate__animated animate__fadeInDown">🎂 Our Special Cake 🎂</h1>
+
+  <div class="container">
+
+    <!-- Animated Border around 3D model -->
+    <div class="animated-border animate__animated animate__zoomIn">
+      <model-viewer 
+        id="cakeModel"
+        src="cake2.glb"   
+        alt="A delicious cake" 
+        auto-rotate 
+        camera-controls 
+        ar
+        shadow-intensity="1">
+      </model-viewer>
+    </div>
+
+    <!-- Animated Border around description -->
+    <div class="animated-border animate__animated animate__fadeInRight">
+      <div class="description">
+        <p>✨ Introducing our signature cake, baked to perfection and decorated with love! This masterpiece combines rich flavors, smooth icing, and a design that melts hearts at first sight.</p>
+        <p>🎉 Perfect for birthdays, anniversaries, and every sweet moment in life. Explore every angle of our cake and fall in love at first bite!</p>
+      </div>
+    </div>
+
+  </div>
+  <!-- Animated Next Page Button -->
+<a href="index.html" class="next-page-btn animate__animated animate__pulse animate__infinite">Back to index page</a>
+
+<style>
+  .next-page-btn {
+    display: inline-block;
+    margin: 40px auto;
+    padding: 14px 32px;
+    background: #d6336c;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+
+  .next-page-btn:hover {
+    background: #c2185b;
+    transform: scale(1.05);
+  }
+
+  body.dark-mode .next-page-btn {
+    background: #6c5ce7;
+    color: #fff;
+  }
+
+  body.dark-mode .next-page-btn:hover {
+    background: #4834d4;
+  }
+</style>
+
+
+  <script>
+    const modelViewer = document.getElementById('cakeModel');
+
+    function zoomIn() {
+      const orbit = modelViewer.getCameraOrbit();
+      modelViewer.cameraOrbit = `${orbit.theta} ${orbit.phi} ${(orbit.radius - 0.2)}m`;
+    }
+
+    function zoomOut() {
+      const orbit = modelViewer.getCameraOrbit();
+      modelViewer.cameraOrbit = `${orbit.theta} ${orbit.phi} ${(orbit.radius + 0.2)}m`;
+    }
+
+    function rotateLeft() {
+      const orbit = modelViewer.getCameraOrbit();
+      modelViewer.cameraOrbit = `${orbit.theta - 10}deg ${orbit.phi} ${orbit.radius}`;
+    }
+
+    function rotateRight() {
+      const orbit = modelViewer.getCameraOrbit();
+      modelViewer.cameraOrbit = `${orbit.theta + 10}deg ${orbit.phi} ${orbit.radius}`;
+    }
+
+    // Toggle Dark Mode
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
+
+</body>
+</html>

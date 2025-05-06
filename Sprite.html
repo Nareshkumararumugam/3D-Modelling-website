@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sprite 3D Experience</title>
+
+  <!-- model-viewer script -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <style>
+    :root {
+      --background-dark: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      --background-light: linear-gradient(135deg, #e0eafc, #cfdef3);
+      --text-dark: white;
+      --text-light: #222;
+      --container-dark: rgba(255, 255, 255, 0.05);
+      --container-light: rgba(0, 0, 0, 0.05);
+      --button-dark: #00ffcc;
+      --button-light: #222222;
+      --title-dark: #00ffcc;
+      --title-light: #003366;
+      --hover-dark: rgba(255, 255, 255, 0.1); /* Hover effect for dark mode */
+      --hover-light: rgba(0, 0, 0, 0.1); /* Hover effect for light mode */
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--background-dark);
+      transition: background 0.5s ease, color 0.5s ease;
+      color: var(--text-dark);
+      padding: 20px;
+      position: relative;
+    }
+
+    /* Title at Top */
+    .main-title {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: var(--title-dark);
+      text-shadow: 0 0 10px var(--title-dark), 0 0 20px var(--title-dark), 0 0 30px var(--title-dark);
+      letter-spacing: 2px;
+      text-align: center;
+    }
+
+    /* Theme Toggle */
+    #themeToggle {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 1px solid white;
+      border-radius: 20px;
+      cursor: pointer;
+      backdrop-filter: blur(5px);
+      transition: background 0.3s ease;
+      font-size: 1rem;
+      z-index: 10;
+    }
+
+    #themeToggle:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .main-container {
+      display: flex;
+      background: var(--container-dark);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      overflow: hidden;
+      width: 90%;
+      max-width: 1200px;
+      height: 600px;
+      transition: background 0.5s ease, box-shadow 0.3s ease;
+      margin-top: 20px;
+    }
+
+    .main-container:hover {
+      background: var(--container-light); /* Change background color on hover */
+      box-shadow: 0 8px 48px rgba(31, 38, 135, 0.5); /* Increase shadow on hover */
+    }
+
+    .text-section {
+      flex: 1;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .model-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.4);
+      border-left: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    model-viewer {
+      width: 100%;
+      height: 500px;
+      background: transparent;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .control-button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      background: var(--button-dark);
+      color: #003333;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .control-button:hover {
+      background: #00bfa6;
+    }
+
+    /* Light mode classes */
+    .light-mode {
+      background: var(--background-light);
+      color: var(--text-light);
+    }
+
+    .light-mode .main-container {
+      background: var(--container-light);
+      border: 2px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .light-mode .model-section {
+      background: rgba(255, 255, 255, 0.6);
+      border-left: 2px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .light-mode #themeToggle {
+      background: rgba(0, 0, 0, 0.2);
+      color: #222;
+      border: 1px solid #222;
+    }
+
+    .light-mode .control-button {
+      background: var(--button-light);
+      color: white;
+    }
+
+    .light-mode .control-button:hover {
+      background: #444;
+    }
+
+    /* Light mode title color change */
+    .light-mode .main-title {
+      color: var(--title-light);
+      text-shadow: 0 0 10px var(--title-light), 0 0 20px var(--title-light), 0 0 30px var(--title-light);
+    }
+    
+  </style>
+</head>
+
+<body>
+
+<!-- Theme Toggle Button -->
+<button id="themeToggle">Light Mode</button>
+
+<!-- Main Title -->
+<div class="main-title">Sprite 3D Experience</div><br><br><br>
+
+<!-- Main Content Container -->
+<div class="main-container">
+  
+  <!-- Text Section -->
+  <div class="text-section">
+    <h1>About Sprite</h1>
+    <p>
+      Sprite, introduced by The Coca-Cola Company in 1961, is a refreshing lemon-lime soda known for its crisp, clean taste. 
+      Originally developed to compete with 7 Up, Sprite quickly captured hearts with its bold and vibrant flavor. 
+      Over decades, Sprite has embodied youthful energy and creativity, becoming a global icon for refreshment and originality.
+    </p>
+  </div>
+
+  <!-- 3D Model Section -->
+  <div class="model-section">
+    <model-viewer 
+      id="spriteModel"
+      src="Untitled.glb"  
+      alt="3D Sprite Bottle" 
+      auto-rotate 
+      camera-controls 
+      shadow-intensity="1" 
+      exposure="1.2">
+    </model-viewer>
+
+    <!-- Control Buttons -->
+    <div class="button-group">
+      <button class="control-button" onclick="rotateModel()">Rotate</button>
+      <button class="control-button" onclick="zoomModel()">Zoom In</button>
+      <button class="control-button" onclick="resetModel()">Reset View</button>
+    </div>
+  </div>
+
+</div>
+<div style="margin-top: 30px; display: flex; justify-content: center; gap: 20px;">
+  <button class="control-button" style="padding: 15px 30px; font-size: 1.2rem; border-radius: 30px;">
+    <a href="coke.html" class="next" style="color: inherit; text-decoration: none;">Previous Model</a>
+  </button>
+  <button id="nextModel" class="control-button" style="padding: 15px 30px; font-size: 1.2rem; border-radius: 30px;">
+    <a href="cake.html" class="next" style="color: inherit; text-decoration: none;">Next Model</a>
+  </button>
+</div>
+
+
+<script>
+  const modelViewer = document.getElementById('spriteModel');
+  const themeToggle = document.getElementById('themeToggle');
+  const body = document.body;
+
+  function rotateModel() {
+    modelViewer.autoRotate = !modelViewer.autoRotate;
+  }
+
+  function zoomModel() {
+    const orbit = modelViewer.getCameraOrbit();
+    const newRadius = Math.max(orbit.radius - 0.5, 1); // Zoom in but not too much
+    modelViewer.cameraOrbit = `${newRadius}m ${orbit.theta}rad ${orbit.phi}rad`;
+  }
+
+  function resetModel() {
+    modelViewer.cameraOrbit = '2.5m 0deg 90deg';
+    modelViewer.autoRotate = false;
+  }
+
+  themeToggle.addEventListener('click', () => {
+    body.classList.toggle('light-mode');
+    themeToggle.innerText = body.classList.contains('light-mode') ? 'Dark Mode' : 'Light Mode';
+  });
+</script>
+
+</body>
+</html>

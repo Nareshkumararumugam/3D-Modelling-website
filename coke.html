@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coca-Cola in 3D</title>
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle, #ffdde1, #ff4b5c);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    body.dark-mode {
+      background: radial-gradient(circle, #111, #222);
+      color: #eee;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      color: #d00000;
+      margin-top: 30px;
+      text-align: center;
+      animation: fadeInDown 2s;
+      letter-spacing: 1.5px;
+    }
+
+    body.dark-mode h1 {
+      color: #ff4b5c;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 60px;
+      padding: 40px;
+    }
+
+    .animated-border {
+      padding: 10px;
+      background: linear-gradient(135deg, #ff4b5c, #ff9a8b);
+      border-radius: 30px;
+      animation: borderPulse 6s infinite;
+      box-shadow: 0 25px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes borderPulse {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    model-viewer {
+      width: 400px;
+      height: 400px;
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+    }
+
+    body.dark-mode model-viewer {
+      background: #2c2c2c;
+    }
+
+    .description {
+      width: 420px;
+      background: #ffffffdd;
+      padding: 25px;
+      border-radius: 20px;
+      font-size: 1.2rem;
+      line-height: 1.7;
+      color: #222;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    body.dark-mode .description {
+      background: #2a2a3cdd;
+      color: #f1f1f1;
+    }
+
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #d00000;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 50px;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: background 0.3s, transform 0.3s;
+      z-index: 1000;
+    }
+
+    .toggle-btn:hover {
+      background: #a30000;
+      transform: scale(1.05);
+    }
+
+    body.dark-mode .toggle-btn {
+      background: #6c5ce7;
+    }
+
+    body.dark-mode .toggle-btn:hover {
+      background: #4834d4;
+    }
+
+    /* Bubbles */
+    .bubbles {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: 0;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      animation: rise 10s infinite ease-in;
+    }
+
+    @keyframes rise {
+      0% { transform: translateY(0) scale(1); opacity: 0.8; }
+      100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <button class="toggle-btn" onclick="toggleDarkMode()">🧃 Toggle Mode</button>
+
+  <h1 class="animate__animated animate__zoomIn">Coca-Cola in 3D</h1>
+
+  <div class="container">
+    <div class="animated-border animate__animated animate__fadeInLeft">
+      <model-viewer
+        id="cokeModel"
+        src="coke.glb"
+        alt="Coca-Cola Bottle"
+        auto-rotate
+        camera-controls
+        ar
+        shadow-intensity="1">
+      </model-viewer>
+    </div>
+
+    <div class="animated-border animate__animated animate__fadeInRight">
+      <div class="description">
+        <p> Dive into the iconic world of Coca-Cola — now in 3D! This classic bottle is more than a drink; it’s a symbol, a design legacy, and a refreshing experience.</p>
+        <p>Interact, rotate, and zoom in to explore every curve and detail of the world’s most recognizable beverage bottle.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bubble Background -->
+  <div class="bubbles">
+    <div class="bubble" style="left:10%; animation-delay: 0s;"></div>
+    <div class="bubble" style="left:25%; animation-delay: 2s;"></div>
+    <div class="bubble" style="left:40%; animation-delay: 4s;"></div>
+    <div class="bubble" style="left:55%; animation-delay: 1s;"></div>
+    <div class="bubble" style="left:70%; animation-delay: 3s;"></div>
+    <div class="bubble" style="left:85%; animation-delay: 5s;"></div>
+    <div class="bubble" style="left:15%; animation-delay: 0s;"></div>
+    <div class="bubble" style="left:30%; animation-delay: 2s;"></div>
+    <div class="bubble" style="left:45%; animation-delay: 4s;"></div>
+    <div class="bubble" style="left:60%; animation-delay: 1s;"></div>
+    <div class="bubble" style="left:75%; animation-delay: 3s;"></div>
+    <div class="bubble" style="left:90%; animation-delay: 5s;"></div>
+  </div>
+  <!-- Next Page Button -->
+<a href="Sprite.html" class="next-page-btn"> Next Page</a>
+
+<style>
+  .next-page-btn {
+    display: inline-block;
+    margin: 40px auto 20px;
+    padding: 14px 28px;
+    background: #d00000;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+  }
+
+  .next-page-btn:hover {
+    background: #a30000;
+    transform: scale(1.05);
+  }
+
+  body.dark-mode .next-page-btn {
+    background: #6c5ce7;
+    color: #fff;
+  }
+
+  body.dark-mode .next-page-btn:hover {
+    background: #4834d4;
+  }
+</style>
+
+
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
+
+</body>
+</html>
